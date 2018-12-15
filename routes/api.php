@@ -18,10 +18,12 @@ Route::Resource('/todoLists.task', 'TodoLists\TodoListsController', [
     'only' => ['store', 'update', 'destroy']
 ]);
 
-Route::group(['prefix'=>'todoList'],function(){
-    Route::apiResource('/{todoList}/reviews','ReviewController');
-});
+//Route::group(['prefix'=>'todoList'],function(){
+//    Route::apiResource('/{todoList}/reviews','ReviewController');
+//});
 
+Route::post('/register', 'Auth\AuthController@register');
+Route::post('/login', 'Auth\AuthController@login');
 
 
 

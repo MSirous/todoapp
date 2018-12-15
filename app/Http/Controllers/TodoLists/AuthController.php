@@ -1,42 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\TodoLists;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 /**
  * Class AuthController
  *
- * @package \App\Http\Controllers\Auth
+ * @package \App\Http\Controllers\TodoLists
  */
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
+        $request->Validate([
             'name' => 'required',
             'email' => 'required',
-            'phone' => 'required',
             'password' => 'required',
         ]);
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
         $user->save();
 
         $http = new Client;
 
-        $response = $http->post(url('oauth/token'), [
+        $response = $http->post('http://todoapp.test/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
 //                'refresh_token' => 'the--token',
-                'client_id' => '1',
+                'client_id' => '2',
                 'client_secret' => 'VaGnnZWHqYQm37B8YJNY84rP7VsaP0AtE1a0qlN9',
                 'username' => $request->email,
                 'password' => $request->password,
@@ -47,23 +43,8 @@ class AuthController extends Controller
         return response(['data' => json_decode((string) $response->getBody(), true)]);
     }
 
-    public function login(Request $request)
+    public function login()
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        $user = User::where('email', $request->email)->first();
-        if (!$user)
-        {
-            return response([
-                'status' => 'error',
-                'message' => 'User Not found!'
-                ]);
-        }
-        if (Hash::check($request->password, $user->password))
-        {
 
-        }
     }
 }
