@@ -41,7 +41,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'phone' => ['required', 'string', 'email', 'min:9','max:10' ,'unique:users'],
+            'phone' => ['required', 'string', 'min:9','max:10' ,'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -64,7 +64,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        $todloList_id = $request->input('todloList_id');
+        $todloList_id = $request->input('todo_list_id');
         $user_id = $request->input('user_id');
     }
 }

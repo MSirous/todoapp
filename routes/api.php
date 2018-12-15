@@ -13,7 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::apiResource('/todoLists', 'TodoList\TodoListsController');
+Route::Resource('/todoLists', 'TodoLists\TodoListsController');
+Route::Resource('/todoLists.task', 'TodoLists\TodoListsController', [
+    'only' => ['store', 'update', 'destroy']
+]);
+
 Route::group(['prefix'=>'todoList'],function(){
     Route::apiResource('/{todoList}/reviews','ReviewController');
 });
