@@ -13,7 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('todolists', 'TodoList\TodoListController');
+Route::apiResource('/todoLists', 'TodoList\TodoListsController');
+Route::group(['prefix'=>'todoList'],function(){
+    Route::apiResource('/{todoList}/reviews','ReviewController');
+});
+
+
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
