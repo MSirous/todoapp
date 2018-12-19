@@ -13,10 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::Resource('/todoLists', 'TodoLists\TodoListsController');
-Route::Resource('/todoLists.task', 'TodoLists\TodoListsController', [
-    'only' => ['store', 'update', 'destroy']
-]);
+//Route::apiResource('/todoLists', 'TodoLists\TodoListsController');
+Route::get('todoLists', 'TodoLists\TodoListsController@index');
+Route::get('todoLists/{id}', 'TodoLists\TodoListsController@show');
+Route::post('todoLists', 'TodoLists\TodoListsController@store');
+Route::put('todoLists/{todo}', 'TodoLists\TodoListsController@update');
+Route::delete('todoLists/{todo}', 'TodoLists\TodoListsController@delete');
+Route::any('errors', 'TodoLists\TodoListsController@errors');
+
+Route::apiResource('tasks', 'TodoLists\TasksController');
+Route::get('todoLists/{todo}/tasks', 'TodoLists\TodoListsController@tasks');
+
+
+//Route::Resource('/todoLists.task', 'TodoLists\TodoListsController', [
+//    'only' => ['store', 'update', 'destroy']
+//]);
 
 //Route::group(['prefix'=>'todoList'],function(){
 //    Route::apiResource('/{todoList}/reviews','ReviewController');
