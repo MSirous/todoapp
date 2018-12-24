@@ -9,6 +9,8 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TodoList\TodoList as TodoListResponse;
+
 
 class TodoListsController extends Controller
 {
@@ -45,12 +47,11 @@ class TodoListsController extends Controller
 // single Id return
     public function show($id)
     {
-        $todo = TodoList::find($id);
-        if (is_null($todo))
-        {
-            return response()->json($todo, 404);
-        }
-        return response()->json(TodoList::findOrFail($id), 200);
+        $todo = TodoList::with('Tasks')->findOrFail($id);
+        $response['TodoLists'] = $todo;
+        $response['Tasks'] = $todo->tasks();
+//        $response = new TodoListResponse($todo, 200);
+        return response()->json($response, 200);
     }
 
 

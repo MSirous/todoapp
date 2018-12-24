@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TodoList extends Model
 {
     protected $fillable = ['title', 'description', 'user_id'];
+    protected $hidden = ['tasks',];
 
     public function user()
     {
