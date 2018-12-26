@@ -49,8 +49,7 @@ class TodoListsController extends Controller
     {
         $todo = TodoList::with('Tasks')->findOrFail($id);
         $response['TodoLists'] = $todo;
-        $response['Tasks'] = $todo->tasks();
-//        $response = new TodoListResponse($todo, 200);
+//        $response['Tasks'] = $todo->tasks();
         return response()->json($response, 200);
     }
 
